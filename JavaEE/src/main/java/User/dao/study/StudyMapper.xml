@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User.dao.study.StudyMapper">
+    <select id="init" resultType="seat">
+        select seat_row,seat_col,seat_state from seats order by seat_row,seat_col
+    </select>
+
+    <update id="changeSeatState">
+        update seats set seat_state=#{seat_state} where seat_row=#{seat_row} and seat_col=#{seat_col}
+    </update>
+
+    <select id="firstPageInit" resultType="book">
+        select bid,bname,author,img,quantity from books limit 0,4
+    </select>
+
+    <select id="selectCount" resultType="_int">
+        select count(bid) from books
+    </select>
+
+    <select id="pageQuery" resultType="book" parameterType="_int">
+        select bid,bname,author,img,quantity from books limit #{cur_page},4
+    </select>
+
+    <select id="fuzzyQuery" resultType="book" parameterType="map">
+        select bid,bname,author,img,quantity from books
+        <where>
+            <if test="author!=''">
+                author like "%"#{author}"%"
+            </if>
+            <if test="bname!=''">
+                and bname like "%"#{bname}"%"
+            </if>
+        </where>
+    </select>
+</mapper>    

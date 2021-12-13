@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="User.dao.canteen.CanteenMapper">
+    <insert id="addFeedbackRecord" parameterType="canteenAdvice">
+        insert into canteen_advice(username,ad,disad,advice) values (#{username},#{ad},#{disad},#{advice})
+    </insert>
+
+    <select id="init" resultType="SellFood">
+        select food_name,img_src,price,quantity from sell_food limit 0,4
+    </select>
+
+    <select id="queryPage" parameterType="_int" resultType="sellFood">
+        select food_name,img_src,price,quantity from sell_food limit #{page},4
+    </select>
+
+    <select id="foodCount" resultType="_int">
+        select count(food_name) from sell_food
+    </select>
+
+    <insert id="insertBuyList" parameterType="buyFood">
+        insert into buy_food (username,food_name,img_src,price)  values (#{username},#{food_name},#{img_src},#{price})
+    </insert>
+
+    <delete id="deleteBuyList" parameterType="string">
+        delete from buy_food where username=#{username}
+    </delete>
+
+    <select id="queryBuyListByName" parameterType="string" resultType="buyFood">
+        select food_name,img_src,price from buy_food where username=#{username}
+    </select>
+
+    <select id="queryListByFoodName" parameterType="string" resultType="_int">
+        select id from buy_food where food_name=#{food_name} limit 0,1
+    </select>
+    
+    <delete id="deleteListByFoodId" parameterType="_int" >
+        delete from buy_food where id=#{id}
+    </delete>
+
+    <select id="selectPayCount" resultType="_double" parameterType="string">
+        select sum(price) from buy_food where username=#{username}
+    </select>
+
+    <update id="updateSellFood" parameterType="string">
+        update sell_food set quantity=quantity-1 where food_name=#{food_name}
+    </update>
+</mapper>    

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <import resource="spring-dao.xml"/>
+    <bean id="login_SignServiceImpl" class="User.service.Login_Sign.Login_SignServiceImpl">
+        <property name="login_signMapper" ref="login_SignMapperImpl"/>
+    </bean>
+
+    <bean id="canteenServiceImpl" class="User.service.Canteen.CanteenServiceImpl">
+        <property name="canteenMapper" ref="canteenMapperImpl"/>
+    </bean>
+
+    <bean id="studyServiceImpl" class="User.service.Study.StudyServiceImpl">
+        <property name="studyMapper" ref="studyMapperImpl"/>
+    </bean>
+
+    <bean id="schoolServiceImpl" class="User.service.SchoolService.SchoolServiceImpl">
+        <property name="schoolMapper" ref="schoolMapperImpl"/>
+    </bean>
+
+    <bean id="dormServiceImpl" class="User.service.Dorm_Service.DormServiceImpl">
+        <property name="dormMapper" ref="dormMapperImpl"/>
+    </bean>
+
+    <bean id="schoolMarketServiceImpl" class="User.service.SchoolMarket.SchoolMarketServiceImpl">
+        <property name="schoolMarketMapper" ref="schoolMarketMapperImpl"/>
+    </bean>
+</beans>

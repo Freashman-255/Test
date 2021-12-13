@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <context:property-placeholder location="classpath:db.properties"/>
+    <bean id="MyDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${ssm.driver}"/>
+        <property name="url" value="${ssm.url}"/>
+        <property name="password" value="${ssm.password}"/>
+        <property name="username" value="${ssm.username}"/>
+    </bean>
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="MyDataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean><bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="SqlSessionFactory"/>
+    </bean>
+
+
+    <bean id="login_SignMapperImpl" class="User.dao.Login_Sign.Login_SignMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="canteenMapperImpl" class="User.dao.canteen.CanteenMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="studyMapperImpl" class="User.dao.study.StudyMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="schoolMapperImpl" class="User.dao.schoolService.SchoolMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="dormMapperImpl" class="User.dao.dorm_service.DormMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+
+    <bean id="schoolMarketMapperImpl" class="User.dao.school_market.SchoolMarketMapperImpl">
+        <property name="sqlSession" ref="sqlSession"/>
+    </bean>
+</beans>
